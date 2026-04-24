@@ -1,0 +1,324 @@
+import mongoose from "mongoose"
+
+export const Role = {
+    ADMIN: "admin",
+    CUSTOMER: "customer",
+    ORGANIZER: "organizer"
+}
+
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String, 
+        required : true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    role: {
+        type: String,
+        enum: Object.values(Role),
+        default: Role.CUSTOMER,
+        required: true
+    },
+    isApproved: {
+      type: Boolean,
+      default: function () {
+        return this.role !== Role.ORGANIZER; 
+    },
+}
+}, {timestamps: true}
+)
+
+const User = mongoose.model("User", userSchema);
+
+export default User
+
+
+
+import mongoose from "mongoose";
+
+export const Language = {
+    ENGLISH: "English",
+    HINDI: "Hindi",
+    GUJARATI: "Gujarati",
+    MARATHI: "Marathi",
+    TAMIL: "Tamil",
+    TELUGU: "Telugu"
+}
+
+const movieSchema = new mongoose.Schema({
+    title :{
+        type : String,
+        required : true
+    },
+    description: {
+        type : String,
+        required: true,
+    },
+    language: {
+      type: String,               
+      enum: Object.values(Language),
+      required: true,            
+    },
+    duration: {
+        type: Number,
+        required: true
+    },
+    rating: {
+        type: Number,
+        required: true,
+        min: 0, max: 10, 
+    },
+    posterUrl: {                  
+      type: String,
+    },
+    genre: {                     
+      type: String,
+      required: true,
+    },
+    createdBy: {                 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
+},
+    {timestamps: true}
+)
+
+const Movie = mongoose.model("Movie", movieSchema);
+export default Movie;
+
+
+
+import mongoose from "mongoose";
+
+
+const theatersSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    organizer:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    isActive: {               
+      type: Boolean,
+      default: true,
+    },
+}, 
+    {timestamps: true}
+)
+
+theaterSchema.index({ city: 1 });
+
+const Theater = mongoose.model("Theater", theatersSchema);
+export default Theater;
+
+
+import mongoose from "mongoose";
+
+
+const theatersSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    organizer:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    isActive: {               
+      type: Boolean,
+      default: true,
+    },
+}, 
+    {timestamps: true}
+)
+
+theaterSchema.index({ city: 1 });
+
+const Theater = mongoose.model("Theater", theatersSchema);
+export default Theater;
+
+
+import mongoose from "mongoose";
+
+const tierSchema = new mongoose.Schema({
+  tier: {
+    type: String,
+    enum: ["VIP", "Premium", "Standard"],
+    required: true,
+  },
+
+  rowStart: Number,
+  rowEnd: Number,
+
+  price: Number,
+});
+
+const screensSchema = new mongoose.Schema({
+    theater: {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Theater",
+        required : true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    rows: {
+        type: Number,
+        required: true
+    },
+    setsPerRow: {
+        type : Number,
+        required: true
+    },
+    tiers: [tierSchema],
+
+}, 
+    {timestamps: true}
+);
+
+const Screen = mongoose.model("Screen", "screensSchema");
+export default Screen;
+
+
+import mongoose from "mongoose";
+
+const seatsSchema = new mongoose.Schema(
+  {
+    showtime: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Showtime",
+      required: true,
+    },
+
+    screen: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Screen",
+      required: true,
+    },
+
+    row: { type: Number, required: true },
+
+    number: { type: Number, required: true },
+
+    tier: {
+      type: String,
+      enum: ["VIP", "Premium", "Standard"],
+    },
+
+    price: Number,
+
+    status: {
+      type: String,
+      enum: ["available", "held", "sold"],
+      default: "available",
+    },
+  },
+  { timestamps: true }
+);
+
+
+seatsSchema.index({ showtime: 1, row: 1, number: 1 }, { unique: true });
+
+export default mongoose.model("Seat", seatsSchema);
+
+
+import mongoose, { Types } from "mongoose";
+
+const bookingsSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    showtime : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref: "Showtime",
+        required : true
+    },
+        seats: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Seat",
+      },
+    ],
+
+    totalAmount : Number,
+
+    bookingId: {
+      type: String,
+      unique: true,
+      required: true
+    },
+    status: {
+      type: String,
+      enum: ["confirmed", "cancelled"],
+      default: "confirmed",
+    },
+    qrCode: String,
+
+}, {timestamps: true}
+)
+
+const Booking = mongoose.model("Booking", bookingsSchema);
+export default Booking;
+
+
+import mongoose from "mongoose";
+
+const holdsSchema = new mongoose.Schema({
+    seat : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref: "Seat",
+        required: true
+    },
+    user: {
+        type : mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true        
+    },
+    showtime: {
+        type : mongoose.Schema.Types.ObjectId,
+        ref: "Showtime",
+        required: true
+    },
+    expiresAt: {
+      type: Date,
+      required: true,
+    },
+}, {timestamps: true})
+
+holdsSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+
+const Hold = mongoose.model("Hold", "holdsSchema");
+
+export const Hold;
