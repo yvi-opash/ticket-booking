@@ -12,7 +12,7 @@ export const getScreenLayout = async (screenId) => {
 };
 
 export const createScreen = async (theaterId, screenData, organizerId) => {
-    // Check if theater belongs to organizer
+ 
     const theater = await Theater.findOne({ _id: theaterId, organizer: organizerId });
     if (!theater) throw new Error("Theater not found or unauthorized");
 
