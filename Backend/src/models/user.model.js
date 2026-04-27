@@ -27,11 +27,9 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     isApproved: {
-      type: Boolean,
-      default: function () {
-        return this.role !== Role.ORGANIZER; 
-    },
-}
+        type: Boolean,
+        default: true
+    }
 }, {timestamps: true}
 )
 

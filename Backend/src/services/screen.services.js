@@ -28,3 +28,4 @@ export const updateScreen = async (screenId, screenData, organizerId) => {
     Object.assign(screen, screenData);
     return await screen.save();
 };
+
