@@ -1,4 +1,4 @@
-import Theater from "../models/theaters.model";
+import Theater from "../models/theaters.model.js";
 
 export const getTheater = async (filters = {}) => {
     return await Theater.find(filters).populate("organizer", "name, email");

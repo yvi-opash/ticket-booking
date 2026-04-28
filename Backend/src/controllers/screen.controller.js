@@ -1,4 +1,4 @@
-import * as screenService from "../services/screenService.js";
+import * as screenService from "../services/screen.services.js";
 
 export const getScreensByTheater = async (req, res, next) => {
     try {

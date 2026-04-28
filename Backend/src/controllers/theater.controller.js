@@ -1,4 +1,4 @@
-import * as theaterServices from "../services/theater.services";
+import * as theaterServices from "../services/theater.services.js";
 
 export const getTheaters = async (req, res, next) => {
     try {

@@ -38,3 +38,5 @@ export const deleteMovie = async(id) => {
     if(!movie) throw new Error("movienot found");
     return movie;
 }
+
+

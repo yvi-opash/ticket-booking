@@ -1,5 +1,4 @@
-import { use } from "react";
-import User, {Role} from "../models/user.model";
+import User, {Role} from "../models/user.model.js";
 
 export const getUser = async(userId) => {
     return await User.find().select(-password);
