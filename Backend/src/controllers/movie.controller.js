@@ -4,7 +4,7 @@ import * as movieServices from "../services/movie.services.js";
 export const getMovies = async (req, res, next ) => {
     try {
         const filters = req.query;
-        const movies = await movieServices.getMovie(filters);
+        const movies = await movieServices.getMovies(filters);
         res.status(200).json({ sucess: true, data: movies})
     } catch (error) {
         next(error)
@@ -43,7 +43,7 @@ export const updateMovie = async (req, res, next) => {
     try {
         const { id } = req.params;
         const movieData = req.body;
-        const movie = await movieService.updateMovie(id, movieData);
+        const movie = await movieServices.updateMovie(movieData, id);
         res.status(200).json({ success: true, data: movie });
     } catch (error) {
         next(error);
@@ -53,7 +53,7 @@ export const updateMovie = async (req, res, next) => {
 export const deleteMovie = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const movie = await movieService.deleteMovie(id);
+        const movie = await movieServices.deleteMovie(id);
         res.status(200).json({ success: true, data: movie });
     } catch (error) {
         next(error);

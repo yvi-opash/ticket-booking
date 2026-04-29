@@ -1,11 +1,11 @@
 import User, {Role} from "../models/user.model.js";
 
 export const getUser = async(userId) => {
-    return await User.find().select(-password);
+    return await User.find().select("-password");
 }
 
 export const approveOrganizer= async(userId) => {
-    const user = await user.findById({userId});
+    const user = await User.findById(userId);
     if(!user) throw new Error("User not found");
 
     if (user.role !== Role.ORGANIZER) {
@@ -17,7 +17,7 @@ export const approveOrganizer= async(userId) => {
 }
 
 export const updateUserRole = async (userId, newRole) => {
-    const user = await user.findById({userId});
+    const user = await User.findById(userId);
     if(!user) throw new Error("User not found");
 
     if (!Object.values(Role).includes(newRole)) {

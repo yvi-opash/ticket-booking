@@ -61,6 +61,7 @@ export const createBooking = async (userId, showtimeId, seatIds) => {
         // Emit real-time socket events for all sold seats
         for (const seat of bookedSeats) {
             emitSeatUpdate(showtimeId, 'seat:sold', {
+                showtimeId,
                 seatId: seat._id,
                 status: "sold"
             });
@@ -104,6 +105,7 @@ export const cancelBooking = async (bookingId, userId) => {
             // Emit real-time update
             if (updatedSeat) {
                 emitSeatUpdate(booking.showtime._id, 'seat:released', {
+                    showtimeId: booking.showtime._id,
                     seatId: updatedSeat._id,
                     status: "available"
                 });

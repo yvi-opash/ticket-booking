@@ -26,6 +26,7 @@ export const holdSeat = async (seatId, userId, showtimeId) => {
         }]);
 
         emitSeatUpdate(showtimeId, 'seat:held', {
+            showtimeId,
             seatId: updatedSeat._id,
             status:"held",
             heldBy: userId
@@ -56,6 +57,7 @@ export const releaseSeat = async (seatId, userId, showtimeId) => {
 
         if(updatedSeat){
             emitSeatUpdate(showtimeId, 'seat:released', {
+                showtimeId,
                 seatId: updatedSeat._id,
                 status: "available"
             });

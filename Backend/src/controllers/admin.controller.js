@@ -29,7 +29,7 @@ export const updateUserRole = async(req, res, next) => {
             return res.status(400).json({ success: false, message: "Role is required" });
         }
 
-        const user = await adminService.updateUserRole(id, role);
+        const user = await adminServices.updateUserRole(id, role);
         res.status(200).json({ success: true, data: user, message: "User role updated successfully" });
 
         

@@ -31,13 +31,13 @@ export const getShowTimeSeats = async(req, res, next) => {
         res.status(200).json({ success: true, data: seats });
 
     } catch (error) {
-        nect (error)
+        next(error)
     }
 }
 
 export const createShowtime = async(req, res, next) => {
     try {
-        const { showtimedata } = req.body;
+        const showtimedata = req.body;
 
         const showtime = await showtimeServices.createShowtime(showtimedata);
         res.status(200).json({ success: true, data: showtime });
@@ -49,10 +49,10 @@ export const createShowtime = async(req, res, next) => {
 export const updateShowtime = async(req, res, next) => {
     try {
         const {id} = req.params;
-        const{showtimedata} = req.body;
+        const showtimedata = req.body;
 
         const update = await showtimeServices.updateShowtime(id, showtimedata);
-        res.status(200).json({ success: true, data: showtimes });
+        res.status(200).json({ success: true, data: update });
     } catch (error) {
         next(error)
     }

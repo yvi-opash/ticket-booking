@@ -17,7 +17,7 @@ export const getTheaterByOrganizer = async(req, res, next )=> {
         const organizerId = req.user.id;
 
         const theater = await theaterServices.getTheaterByOrganizer(organizerId);
-        res.status(200).json({ success: true, data: theaters });
+        res.status(200).json({ success: true, data: theater });
     
     } catch (error) {
         next(error)
@@ -29,7 +29,7 @@ export const createTheater = async (req, res, next) => {
         const organizerId = req.user.id;
         const theaterdata = req.body;
 
-        const theater = await theaterService.createTheater(theaterData, organizerId);
+        const theater = await theaterServices.createTheater(theaterdata, organizerId);
         res.status(201).json({ success: true, data: theater });
 
 
@@ -44,7 +44,7 @@ export const updateTheater = async (req, res, next) => {
         const theaterData = req.body;
         const organizerId = req.user.id;
         
-        const theater = await theaterService.updateTheater(id, theaterData, organizerId);
+        const theater = await theaterServices.updateTheater(id, theaterData, organizerId);
         res.status(200).json({ success: true, data: theater });
 
     } catch (error) {

@@ -1,4 +1,4 @@
-import * as bookingService from "../services/booking.sevices.js";
+import * as bookingService from "../services/booking.services.js";
 
 export const createBooking = async (req, res, next) => {
     try {

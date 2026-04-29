@@ -37,7 +37,10 @@ const showtimesSchema = new mongoose.Schema({
         enum: ["2D", "3D", "IMAX"],
         default: "2D",
     },
-
+    price: {
+        type: Number,
+        default: 10,
+    }
 
 
 }, {timestamps: true}

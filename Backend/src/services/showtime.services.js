@@ -4,11 +4,11 @@ import mongoose from "mongoose";
 import Screen from "../models/screens.model.js";
 
 export const getShowTime = async (filters = {}) => {
-    return await Showtime.find(filters).populate("movie").populate("screen");
+    return await Showtime.find(filters).populate("movie").populate({ path: "screen", populate: { path: "theater" } });
 };
 
 export const getShowTimeById =  async (id) => {
-    const showtime = await Showtime.findById(id).populate("movie").populate("screen");
+    const showtime = await Showtime.findById(id).populate("movie").populate({ path: "screen", populate: { path: "theater" } });
     if(!showtime) throw new Error ("showtime not found");
     return showtime; 
 };
@@ -21,7 +21,7 @@ export const getShowTimeSeats = async (showtimeId) => {
 
 export const createShowtime = async (showtimedata) => {
     try {
-        const {screenId, movieId, starstAt} =showtimedata;
+        const {screenId, movieId, startsAt} = showtimedata;
         
         const screen = await Screen.findById(screenId);
         if (!screen) throw new Error("Screen not found");
@@ -29,7 +29,7 @@ export const createShowtime = async (showtimedata) => {
         const movie = await mongoose.model("Movie").findById(movieId);
         if(!movie) throw new Error("movie not found");
 
-        const starts = new Date(starstAt);
+        const starts = new Date(startsAt);
         const ends = new Date(starts.getTime() + (movie.duration || 120)* 60000);
 
         const showtimeObj = {
@@ -38,7 +38,8 @@ export const createShowtime = async (showtimedata) => {
             startsAt : starts,
             endsAt : ends,
             language : movie.language,
-            format: "2D"
+            format: "2D",
+            price: showtimedata.price || 10,
         };
 
         const result = await Showtime.create([showtimeObj]);
@@ -77,7 +78,7 @@ export const createShowtime = async (showtimedata) => {
         }
         return showtime
     } catch (error) {
-
+        throw error;
     }
 }
 

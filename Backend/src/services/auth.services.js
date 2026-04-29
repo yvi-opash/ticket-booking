@@ -12,10 +12,10 @@ export const registerUser = async (userData) => {
 
     const {name, email, password, role} = userData;
 
-    const exist = await User.fondOne({email});
+    const exist = await User.findOne({email});
     if(exist) {
         const error = new Error("User Already Exist");
-        error.statuscode = 400;
+        error.statusCode = 400;
         throw error;
     }
 
@@ -49,7 +49,7 @@ export const loginUser = async(email, password) => {
         throw error; 
     }
 
-    if(user && (await bcrypt.compare(password, User.password))) {
+    if(user && (await bcrypt.compare(password, user.password))) {
         return {
             _id: user._id,
             name: user.name,
@@ -66,7 +66,7 @@ export const loginUser = async(email, password) => {
 }
 
 export const getMe = async (userId) => {
-    const user = await User.findById(userId).select(-password);
+    const user = await User.findById(userId).select("-password");
     if (!user) throw new Error("User not found");
     return user;
 }
