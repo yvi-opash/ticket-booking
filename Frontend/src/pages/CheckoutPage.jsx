@@ -44,10 +44,10 @@ const CheckoutPage = () => {
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Order Summary */}
         <div className="animate-in slide-in-from-left-8 duration-700">
-          <h2 className="text-3xl font-display text-cinema-gold mb-8 uppercase tracking-widest">
+          <h2 className="text-3xl font-display text-brand-primary mb-8 uppercase tracking-widest">
             Final Summary
           </h2>
-          <div className="glass-card p-8 border-l-4 border-cinema-gold">
+          <div className="glass-card p-8 border-l-4 border-brand-primary">
             <h3 className="text-2xl font-display text-white mb-2">
               {state.movieTitle}
             </h3>
@@ -72,7 +72,7 @@ const CheckoutPage = () => {
             </div>
 
             <div className="pt-6 border-t border-white border-opacity-10 flex justify-between items-center">
-              <span className="text-lg font-display text-cinema-gold uppercase tracking-widest">
+              <span className="text-lg font-display text-brand-primary uppercase tracking-widest">
                 Total Amount
               </span>
               <span className="text-4xl font-display text-white">
@@ -139,7 +139,7 @@ const CheckoutPage = () => {
             </div>
 
             {error && (
-              <div className="p-3 bg-cinema-red bg-opacity-10 border border-cinema-red rounded text-cinema-red text-xs font-bold uppercase tracking-widest">
+              <div className="p-3 bg-white/20 bg-opacity-10 border border-white/20 rounded text-white/20 text-xs font-bold uppercase tracking-widest">
                 {error}
               </div>
             )}
@@ -186,12 +186,12 @@ const CheckoutPage = () => {
           </div>
           <p className="text-gray-300 mb-8">
             Your seats have been successfully booked. Your booking ID is{" "}
-            <span className="text-cinema-gold font-bold">
+            <span className="text-brand-primary font-bold">
               {successBooking?.bookingId}
             </span>
             .
           </p>
-          <div className="w-40 h-40 bg-white mx-auto mb-8 flex items-center justify-center border-4 border-cinema-gold p-2">
+          <div className="w-40 h-40 bg-white mx-auto mb-8 flex items-center justify-center border-4 border-brand-primary p-2">
             {successBooking?.qrCode ? (
               <img
                 src={successBooking.qrCode}
@@ -209,7 +209,7 @@ const CheckoutPage = () => {
           <div className="flex flex-col space-y-3">
             <button
               onClick={() => navigate("/my-bookings")}
-              className="btn-primary w-full py-3 text-xs tracking-widest"
+              className="btn-primary w-full py-3 text-xs tracking-widest "
             >
               View My Tickets
             </button>

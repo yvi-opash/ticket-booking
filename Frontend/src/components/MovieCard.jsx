@@ -5,51 +5,55 @@ const MovieCard = ({ movie }) => {
   return (
     <Link
       to={`/movies/${movie._id}`}
-      className="group relative overflow-hidden rounded-lg transition-all duration-500 hover:shadow-[0_0_30px_rgba(245,197,24,0.3)]"
+      className="group relative glass-card p-2 block hover:translate-y-[-8px]"
     >
-      {/* Poster Image */}
-      <div className="aspect-[2/3] overflow-hidden bg-cinema-dark">
+      <div className="relative aspect-[10/14] overflow-hidden rounded-xl">
         <img
           src={movie.posterUrl}
           alt={movie.title}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-cinema-black via-transparent to-transparent opacity-80" />
+        {/* Overlay Details */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+          <div className="space-y-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+             <div className="flex gap-2">
+                <span className="bg-brand-primary text-black text-[8px] font-black px-2 py-1 rounded uppercase">
+                  HD 4K
+                </span>
+                <span className="bg-white/20 backdrop-blur-md text-white text-[8px] font-black px-2 py-1 rounded uppercase">
+                  {movie.language}
+                </span>
+             </div>
+             <p className="text-white/60 text-[10px] line-clamp-3 leading-relaxed">
+                {movie.description || "Experience the thrill of " + movie.title + " on the big screen with premium sound."}
+             </p>
+             <div className="glass-button-primary w-full text-center py-3 text-[10px]">
+                Book Tickets
+             </div>
+          </div>
+        </div>
 
-        {/* Hover Book Now Button */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <button className="btn-primary transform translate-y-4 transition-transform duration-300 group-hover:translate-y-0">
-            Book Now
-          </button>
+        {/* Badge */}
+        <div className="absolute top-4 left-4">
+          <div className="bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full">
+            <span className="text-[10px] font-black text-brand-primary uppercase tracking-widest">
+              {movie.genre}
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Genre Badge */}
-      <div className="absolute top-3 right-3">
-        <span className="bg-cinema-red text-[10px] font-bold px-2 py-1 rounded uppercase tracking-tighter">
-          {movie.genre}
-        </span>
-      </div>
-
-      {/* Movie Info */}
-      <div className="p-4 bg-cinema-dark border-t border-white border-opacity-5">
-        <h3 className="text-xl font-display text-white mb-1 truncate group-hover:text-cinema-gold transition-colors">
+      <div className="p-4 pt-6">
+        <h3 className="text-lg font-black text-white mb-2 truncate group-hover:text-brand-primary transition-colors uppercase tracking-tighter">
           {movie.title}
         </h3>
-        <div className="flex items-center justify-between text-xs text-cinema-muted uppercase tracking-widest">
-          <span>{movie.language}</span>
-          <div className="flex items-center">
-            <svg
-              className="w-3 h-3 mr-1"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" />
-            </svg>
-            {movie.duration} min
-          </div>
+        <div className="flex items-center justify-between text-[10px] text-white/40 uppercase font-bold tracking-widest">
+          <span className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-brand-primary" />
+            {movie.language}
+          </span>
+          <span>{movie.duration} MIN</span>
         </div>
       </div>
     </Link>

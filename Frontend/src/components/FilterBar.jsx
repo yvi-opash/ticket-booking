@@ -31,97 +31,88 @@ const FilterBar = ({ filters, onChange }) => {
   };
 
   return (
-    <div className="sticky top-20 z-30 w-full py-6 bg-cinema-black bg-opacity-80 backdrop-blur-xl border-b border-white border-opacity-5">
-      <div className="max-w-7xl mx-auto px-4 flex flex-wrap gap-4 items-end">
-        {/* Movie Title Filter */}
-        <div className="flex-1 min-w-[200px]">
-          <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
-            Movie Name
-          </label>
-          <input
-            type="text"
-            name="title"
-            value={filters.title || ""}
-            onChange={handleChange}
-            placeholder="Search Movie..."
-            className="input-field py-2"
-          />
-        </div>
+    <div className="sticky top-24 z-40 w-full">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="glass-card p-6 flex flex-wrap gap-8 items-end shadow-2xl">
+          {/* Movie Title Filter */}
+          <div className="flex-1 min-w-[200px]">
+            <label className="text-[10px] uppercase font-black tracking-[0.3em] text-white/30 mb-3 ml-1 block">
+              Search Title
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                name="title"
+                value={filters.title || ""}
+                onChange={handleChange}
+                placeholder="The Dark Knight..."
+                className="glass-input w-full"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 text-xs">🔍</span>
+            </div>
+          </div>
 
-        {/* City Filter */}
-        <div className="flex-1 min-w-[200px]">
-          <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
-            Location
-          </label>
-          <input
-            type="text"
-            name="city"
-            value={filters.city || ""}
-            onChange={handleChange}
-            placeholder="Search City..."
-            className="input-field py-2"
-          />
-        </div>
+          {/* City Filter */}
+          <div className="flex-1 min-w-[200px]">
+            <label className="text-[10px] uppercase font-black tracking-[0.3em] text-white/30 mb-3 ml-1 block">
+              Select City
+            </label>
+            <input
+              type="text"
+              name="city"
+              value={filters.city || ""}
+              onChange={handleChange}
+              placeholder="Ahmedabad..."
+              className="glass-input w-full"
+            />
+          </div>
 
-        {/* Language Filter */}
-        <div className="w-40">
-          <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
-            Language
-          </label>
-          <select
-            name="language"
-            value={filters.language || "All"}
-            onChange={handleChange}
-            className="input-field py-2 cursor-pointer"
+          {/* Language Filter */}
+          <div className="w-44">
+            <label className="text-[10px] uppercase font-black tracking-[0.3em] text-white/30 mb-3 ml-1 block">
+              Language
+            </label>
+            <select
+              name="language"
+              value={filters.language || "All"}
+              onChange={handleChange}
+              className="glass-input w-full cursor-pointer appearance-none"
+            >
+              {languages.map((l) => (
+                <option key={l} value={l} className="bg-brand-dark">
+                  {l}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Genre Filter */}
+          <div className="w-44">
+            <label className="text-[10px] uppercase font-black tracking-[0.3em] text-white/30 mb-3 ml-1 block">
+              Genre
+            </label>
+            <select
+              name="genre"
+              value={filters.genre || "All"}
+              onChange={handleChange}
+              className="glass-input w-full cursor-pointer appearance-none"
+            >
+              {genres.map((g) => (
+                <option key={g} value={g} className="bg-brand-dark">
+                  {g}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Reset Button */}
+          <button
+            onClick={() => onChange({})}
+            className="h-11 px-6 text-[10px] text-white/30 uppercase font-black tracking-widest hover:text-brand-primary transition-colors"
           >
-            {languages.map((l) => (
-              <option key={l} value={l}>
-                {l}
-              </option>
-            ))}
-          </select>
+            Reset
+          </button>
         </div>
-
-        {/* Genre Filter */}
-        <div className="w-40">
-          <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
-            Genre
-          </label>
-          <select
-            name="genre"
-            value={filters.genre || "All"}
-            onChange={handleChange}
-            className="input-field py-2 cursor-pointer"
-          >
-            {genres.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Date Filter */}
-        <div className="w-48">
-          <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
-            Show Date
-          </label>
-          <input
-            type="date"
-            name="date"
-            value={filters.date || ""}
-            onChange={handleChange}
-            className="input-field py-2 cursor-pointer"
-          />
-        </div>
-
-        {/* Reset Button */}
-        <button
-          onClick={() => onChange({})}
-          className="text-[10px] text-cinema-muted uppercase font-bold tracking-widest h-10 hover:text-cinema-gold transition-colors pb-1"
-        >
-          Reset Filters
-        </button>
       </div>
     </div>
   );

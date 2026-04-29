@@ -109,9 +109,9 @@ const AdminDashboardPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cinema-black py-20 px-4">
+    <div className="min-h-screen bg-brand-dark py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-display text-cinema-gold mb-12 uppercase tracking-[0.2em]">
+        <h1 className="text-4xl font-display text-brand-primary mb-12 mt-10 uppercase tracking-[0.2em]">
           Super Admin Dashboard
         </h1>
 
@@ -123,8 +123,8 @@ const AdminDashboardPage = () => {
               onClick={() => setActiveTab(tab)}
               className={`pb-4 text-xs font-bold uppercase tracking-widest transition-all ${
                 activeTab === tab
-                  ? "text-cinema-gold border-b-2 border-cinema-gold"
-                  : "text-cinema-muted hover:text-white"
+                  ? "text-brand-primary border-b-2 border-brand-primary"
+                  : "text-white/40 hover:text-white"
               }`}
             >
               {tab}
@@ -167,10 +167,10 @@ const AdminDashboardPage = () => {
                     <span className="text-gray-400">
                       New booking for{" "}
                       <span className="text-white font-bold">
-                        {b.showtime.movie.title}
+                        {b.showtime?.movie?.title || "Deleted Movie"}
                       </span>
                     </span>
-                    <span className="text-cinema-gold font-display text-lg">
+                    <span className="text-brand-primary font-display text-lg">
                       ₹{b.totalAmount}
                     </span>
                   </div>
@@ -187,7 +187,7 @@ const AdminDashboardPage = () => {
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
-                  <thead className="bg-white bg-opacity-5 text-[10px] uppercase font-bold tracking-widest text-cinema-muted">
+                  <thead className="bg-brand-primary/10 text-[10px] uppercase font-black tracking-[0.2em] text-brand-primary border-b border-brand-primary/20">
                     <tr>
                       <th className="px-6 py-4">Name</th>
                       <th className="px-6 py-4">Email</th>
@@ -228,7 +228,7 @@ const AdminDashboardPage = () => {
                               className={
                                 user.isApproved
                                   ? "text-green-500"
-                                  : "text-cinema-red font-bold uppercase text-[10px]"
+                                  : "text-white/20 font-bold uppercase text-[10px]"
                               }
                             >
                               {user.isApproved
@@ -243,7 +243,7 @@ const AdminDashboardPage = () => {
                           {user.role === "organizer" && !user.isApproved && (
                             <button
                               onClick={() => approveMutation.mutate(user._id)}
-                              className="btn-primary text-[10px] py-1 px-4 tracking-widest"
+                              className="glass-button-primary text-[10px] py-1 px-4 tracking-widest"
                             >
                               Approve
                             </button>
@@ -266,7 +266,7 @@ const AdminDashboardPage = () => {
               </h2>
               <button
                 onClick={() => setIsMovieModalOpen(true)}
-                className="btn-primary text-xs py-2 px-6 tracking-widest"
+                className="glass-button-primary text-xs py-2 px-6 tracking-widest"
               >
                 + Add Movie
               </button>
@@ -278,7 +278,7 @@ const AdminDashboardPage = () => {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
-                    <thead className="bg-white bg-opacity-5 text-[10px] uppercase font-bold tracking-widest text-cinema-muted">
+                    <thead className="bg-white/5 text-[10px] uppercase font-bold tracking-widest text-white/40">
                       <tr>
                         <th className="px-6 py-4">Poster</th>
                         <th className="px-6 py-4">Title</th>
@@ -315,7 +315,7 @@ const AdminDashboardPage = () => {
                                 if (confirm("Delete movie?"))
                                   deleteMovieMutation.mutate(movie._id);
                               }}
-                              className="text-cinema-red hover:underline text-[10px] uppercase font-bold tracking-widest"
+                              className="text-white/20 hover:underline text-[10px] uppercase font-bold tracking-widest"
                             >
                               Delete
                             </button>
@@ -337,7 +337,7 @@ const AdminDashboardPage = () => {
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
-                  <thead className="bg-white bg-opacity-5 text-[10px] uppercase font-bold tracking-widest text-cinema-muted">
+                  <thead className="bg-brand-primary/10 text-[10px] uppercase font-black tracking-[0.2em] text-brand-primary border-b border-brand-primary/20">
                     <tr>
                       <th className="px-6 py-4">Booking ID</th>
                       <th className="px-6 py-4">User</th>
@@ -349,7 +349,7 @@ const AdminDashboardPage = () => {
                   <tbody className="divide-y divide-white divide-opacity-5">
                     {bookingsData?.data.map((booking) => (
                       <tr key={booking._id} className="text-xs text-gray-300">
-                        <td className="px-6 py-4 font-mono text-cinema-gold">
+                        <td className="px-6 py-4 font-mono text-brand-primary">
                           {booking.bookingId}
                         </td>
                         <td className="px-6 py-4">
@@ -358,7 +358,7 @@ const AdminDashboardPage = () => {
                             : "User"}
                         </td>
                         <td className="px-6 py-4">
-                          {booking.showtime.movie.title}
+                          {booking.showtime?.movie?.title || "Deleted Movie"}
                         </td>
                         <td className="px-6 py-4 font-bold text-white">
                           ₹{booking.totalAmount}
@@ -368,7 +368,7 @@ const AdminDashboardPage = () => {
                             className={`px-2 py-1 rounded-full text-[8px] uppercase font-bold ${
                               booking.status === "confirmed"
                                 ? "bg-green-500/20 text-green-500"
-                                : "bg-cinema-red/20 text-cinema-red"
+                                : "bg-white/20/20 text-white/20"
                             }`}
                           >
                             {booking.status}
@@ -392,7 +392,7 @@ const AdminDashboardPage = () => {
       >
         <form onSubmit={handleAddMovie} className="space-y-4">
           <div>
-            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
               Title
             </label>
             <input
@@ -408,7 +408,7 @@ const AdminDashboardPage = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Genre
               </label>
               <input
@@ -423,7 +423,7 @@ const AdminDashboardPage = () => {
               />
             </div>
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Language
               </label>
               <input
@@ -440,7 +440,7 @@ const AdminDashboardPage = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Duration (min)
               </label>
               <input
@@ -457,7 +457,7 @@ const AdminDashboardPage = () => {
               />
             </div>
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Rating (0-10)
               </label>
               <input
@@ -478,7 +478,7 @@ const AdminDashboardPage = () => {
             </div>
           </div>
           <div>
-            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
               Poster URL
             </label>
             <input
@@ -493,7 +493,7 @@ const AdminDashboardPage = () => {
             />
           </div>
           <div>
-            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
               Description
             </label>
             <textarea
@@ -510,7 +510,7 @@ const AdminDashboardPage = () => {
           <button
             type="submit"
             disabled={addMovieMutation.isPending}
-            className="w-full btn-primary py-3 text-xs tracking-widest uppercase mt-4"
+            className="w-full glass-button-primary py-3 text-xs tracking-widest uppercase mt-4"
           >
             {addMovieMutation.isPending ? "Adding..." : "Add Movie"}
           </button>

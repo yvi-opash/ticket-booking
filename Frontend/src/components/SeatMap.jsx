@@ -67,52 +67,58 @@ const SeatMap = ({
 
   const getSeatColor = (seat) => {
     if (selectedSeatIds.includes(seat._id)) return "bg-blue-500"; // Selected by current user
-    if (seat.status === "sold") return "bg-cinema-red";
+    if (seat.status === "sold") return "bg-white/20";
     if (seat.status === "held") return "bg-orange-500";
-    return "bg-cinema-gold"; // Available
+    return "bg-brand-primary"; // Available
   };
 
   return (
-    <div className="seat-container w-full max-w-4xl mx-auto py-20 px-4 flex flex-col items-center">
-      {/* Screen Indicator */}
-      <div className="w-full h-2 bg-white bg-opacity-20 rounded-full mb-20 relative shadow-[0_-10px_30px_rgba(255,255,255,0.3)]">
-        <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-xs font-display tracking-[1em] text-white opacity-40 uppercase">
-          Screen
+    <div className="theatre-container w-full max-w-5xl mx-auto py-24 px-6 flex flex-col items-center">
+      {/* Immersive Screen */}
+      <div className="relative w-full mb-32">
+        <div className="theatre-screen" />
+        <div className="absolute top-10 left-1/2 -translate-x-1/2">
+          <span className="text-[10px] font-black uppercase tracking-[2em] text-brand-primary opacity-60">
+            S C R E E N
+          </span>
         </div>
       </div>
 
-      {/* Seat Grid */}
-      <div className="seat-grid w-full overflow-x-auto pb-10">
-        <div className="flex flex-col space-y-4 min-w-max items-center">
+      {/* Seat Grid with Perspective */}
+      <div className="seat-grid w-full overflow-x-auto pb-16 hide-scrollbar">
+        <div className="flex flex-col space-y-6 min-w-max items-center">
           {rowLabels.map((rowLabel) => (
-            <div key={rowLabel} className="flex items-center space-x-6">
-              <span className="w-6 text-xs font-display text-white opacity-40 text-center">
+            <div key={rowLabel} className="flex items-center gap-12">
+              <span className="w-8 text-[11px] font-black text-white/10 text-center uppercase tracking-widest">
                 {String.fromCharCode(64 + Number(rowLabel))}
               </span>
-              <div className="flex space-x-2">
+              <div className="flex gap-4">
                 {rows[Number(rowLabel)]
                   .sort((a, b) => a.number - b.number)
-                  .map((seat) => (
-                    <button
-                      key={seat._id}
-                      onClick={() => onSeatClick(seat)}
-                      disabled={
-                        seat.status !== "available" &&
-                        !selectedSeatIds.includes(seat._id)
-                      }
-                      className={`
-                      w-6 h-6 sm:w-8 sm:h-8 rounded-sm transition-all duration-300 transform
-                      ${getSeatColor(seat)}
-                      ${seat.status === "available" || selectedSeatIds.includes(seat._id) ? "hover:scale-110 shadow-lg cursor-pointer" : "opacity-40 cursor-not-allowed"}
-                      flex items-center justify-center text-[8px] sm:text-[10px] font-bold text-black
-                    `}
-                      title={`Row ${rowLabel}, Seat ${seat.number} - ${seat.tier} - ₹${seat.price}`}
-                    >
-                      {seat.number}
-                    </button>
-                  ))}
+                  .map((seat) => {
+                    const isSelected = selectedSeatIds.includes(seat._id);
+                    const statusClass = isSelected 
+                      ? "seat-selected" 
+                      : seat.status === "sold" 
+                        ? "seat-sold" 
+                        : seat.status === "held" 
+                          ? "seat-held" 
+                          : "seat-available";
+                    
+                    return (
+                      <button
+                        key={seat._id}
+                        onClick={() => onSeatClick(seat)}
+                        disabled={seat.status !== "available" && !isSelected}
+                        className={`seat-base ${statusClass}`}
+                        title={`${seat.tier} - Row ${String.fromCharCode(64 + Number(rowLabel))}${seat.number} - ₹${seat.price}`}
+                      >
+                        {seat.number}
+                      </button>
+                    );
+                  })}
               </div>
-              <span className="w-6 text-xs font-display text-white opacity-40 text-center">
+              <span className="w-8 text-[11px] font-black text-white/10 text-center uppercase tracking-widest">
                 {String.fromCharCode(64 + Number(rowLabel))}
               </span>
             </div>
@@ -120,23 +126,23 @@ const SeatMap = ({
         </div>
       </div>
 
-      {/* Tiers Legend */}
-      <div className="mt-12 flex flex-wrap justify-center gap-8 text-xs font-medium uppercase tracking-widest text-cinema-muted">
-        <div className="flex items-center space-x-2">
-          <div className="w-4 h-4 rounded-sm bg-cinema-gold" />
-          <span>Available</span>
+      {/* Modern Status Legend */}
+      <div className="glass-card px-12 py-8 flex flex-wrap justify-center gap-16 mt-16">
+        <div className="flex items-center gap-4">
+          <div className="w-5 h-5 rounded-lg bg-white/10 border border-white/20" />
+          <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">Available</span>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="w-4 h-4 rounded-sm bg-blue-500" />
-          <span>Selected</span>
+        <div className="flex items-center gap-4">
+          <div className="w-5 h-5 rounded-lg bg-brand-primary shadow-[0_0_20px_rgba(229,9,20,0.4)]" />
+          <span className="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em]">Selected</span>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="w-4 h-4 rounded-sm bg-orange-500" />
-          <span>Held</span>
+        <div className="flex items-center gap-4">
+          <div className="w-5 h-5 rounded-lg bg-white/30" />
+          <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">Held</span>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="w-4 h-4 rounded-sm bg-cinema-red" />
-          <span>Sold</span>
+        <div className="flex items-center gap-4 opacity-20">
+          <div className="w-5 h-5 rounded-lg bg-white/5" />
+          <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Sold</span>
         </div>
       </div>
     </div>

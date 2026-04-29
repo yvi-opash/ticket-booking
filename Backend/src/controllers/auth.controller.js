@@ -22,9 +22,7 @@ export const login = async (req, res, next ) => {
 
 export const getMe = async (req, res, next) => {
     try {
-        const {userId} = req.user.id
-        const user = await authService.getMe(userId);
-        res.status(200).json({ success: true, data: user });
+        res.status(200).json({ success: true, data: req.user });
     } catch (error) {
         next(error)
     }

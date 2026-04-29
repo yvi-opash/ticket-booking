@@ -153,9 +153,9 @@ const OrganizerDashboardPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cinema-black py-20 px-4">
+    <div className="min-h-screen bg-brand-dark py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-display text-cinema-gold mb-12 uppercase tracking-[0.2em]">
+        <h1 className="text-4xl font-display text-brand-primary mb-12 uppercase tracking-[0.2em]">
           Organizer Dashboard
         </h1>
 
@@ -167,8 +167,8 @@ const OrganizerDashboardPage = () => {
               onClick={() => setActiveTab(tab)}
               className={`pb-4 text-xs font-bold uppercase tracking-widest transition-all ${
                 activeTab === tab
-                  ? "text-cinema-gold border-b-2 border-cinema-gold"
-                  : "text-cinema-muted hover:text-white"
+                  ? "text-brand-primary border-b-2 border-brand-primary"
+                  : "text-white/40 hover:text-white"
               }`}
             >
               {tab}
@@ -184,7 +184,7 @@ const OrganizerDashboardPage = () => {
               </h2>
               <button
                 onClick={() => setIsTheaterModalOpen(true)}
-                className="btn-primary text-xs py-2 px-6 tracking-widest"
+                className="glass-button-primary text-xs py-2 px-6 tracking-widest"
               >
                 + Add Theater
               </button>
@@ -197,12 +197,12 @@ const OrganizerDashboardPage = () => {
                 {theatersData?.data.map((theater) => (
                   <div
                     key={theater._id}
-                    className="glass-card p-6 border-l-2 border-cinema-gold group hover:border-cinema-gold/50 transition-all"
+                    className="glass-card p-6 border-l-2 border-brand-primary group hover:border-brand-primary/50 transition-all"
                   >
                     <h3 className="text-xl font-display text-white mb-2 uppercase">
                       {theater.name}
                     </h3>
-                    <p className="text-xs text-cinema-muted uppercase tracking-widest mb-6">
+                    <p className="text-xs text-white/40 uppercase tracking-widest mb-6">
                       {theater.city} • {theater.address}
                     </p>
                     <button
@@ -210,7 +210,7 @@ const OrganizerDashboardPage = () => {
                         setSelectedTheater(theater);
                         setActiveTab("screens");
                       }}
-                      className="text-xs text-cinema-gold font-bold uppercase tracking-widest group-hover:underline"
+                      className="text-xs text-brand-primary font-bold uppercase tracking-widest group-hover:underline"
                     >
                       Manage Screens →
                     </button>
@@ -225,7 +225,7 @@ const OrganizerDashboardPage = () => {
           <div className="animate-in fade-in duration-500">
             {!selectedTheater ? (
               <div className="text-center py-20 glass-card">
-                <p className="text-cinema-muted uppercase tracking-widest text-xs">
+                <p className="text-white/40 uppercase tracking-widest text-xs">
                   Please select a theater first.
                 </p>
                 <button
@@ -242,7 +242,7 @@ const OrganizerDashboardPage = () => {
                     <h2 className="text-2xl font-display text-white uppercase tracking-widest">
                       Screens: {selectedTheater.name}
                     </h2>
-                    <p className="text-[10px] text-cinema-muted uppercase tracking-widest">
+                    <p className="text-[10px] text-white/40 uppercase tracking-widest">
                       {selectedTheater.city}
                     </p>
                   </div>
@@ -251,7 +251,7 @@ const OrganizerDashboardPage = () => {
                       setIsScreenModalOpen(true);
                       setSelectedScreen(null);
                     }}
-                    className="btn-primary text-xs py-2 px-6 tracking-widest"
+                    className="glass-button-primary text-xs py-2 px-6 tracking-widest"
                   >
                     + Add Screen
                   </button>
@@ -264,19 +264,19 @@ const OrganizerDashboardPage = () => {
                     {screensData?.data.map((screen) => (
                       <div
                         key={screen._id}
-                        className="glass-card p-8 border-t-2 border-cinema-gold"
+                        className="glass-card p-8 border-t-2 border-brand-primary"
                       >
                         <div className="flex justify-between items-start mb-6">
                           <div>
                             <h3 className="text-xl font-display text-white mb-1 uppercase tracking-widest">
                               {screen.name}
                             </h3>
-                            <p className="text-xs text-cinema-muted uppercase tracking-widest">
+                            <p className="text-xs text-white/40 uppercase tracking-widest">
                               {screen.rows} Rows • {screen.seatsPerRow}{" "}
                               Seats/Row
                             </p>
                           </div>
-                          <span className="bg-white bg-opacity-5 px-3 py-1 text-[10px] uppercase font-bold text-cinema-gold rounded">
+                          <span className="bg-white/5 px-3 py-1 text-[10px] uppercase font-bold text-brand-primary rounded">
                             {screen.rows * screen.seatsPerRow} Capacity
                           </span>
                         </div>
@@ -300,7 +300,7 @@ const OrganizerDashboardPage = () => {
                               setSelectedScreen(screen);
                               setIsShowtimeModalOpen(true);
                             }}
-                            className="btn-primary flex-1 py-2 text-[10px] tracking-widest"
+                            className="glass-button-primary flex-1 py-2 text-[10px] tracking-widest"
                           >
                             Add Showtime
                           </button>
@@ -316,7 +316,7 @@ const OrganizerDashboardPage = () => {
 
         {activeTab === "showtimes" && (
           <div className="text-center py-20 glass-card animate-in fade-in duration-500">
-            <p className="text-cinema-muted uppercase tracking-widest text-xs">
+            <p className="text-white/40 uppercase tracking-widest text-xs">
               Showtime management interface coming soon.
             </p>
           </div>
@@ -331,7 +331,7 @@ const OrganizerDashboardPage = () => {
       >
         <form onSubmit={handleAddTheater} className="space-y-6">
           <div>
-            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
               Theater Name
             </label>
             <input
@@ -347,7 +347,7 @@ const OrganizerDashboardPage = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 City
               </label>
               <input
@@ -362,7 +362,7 @@ const OrganizerDashboardPage = () => {
               />
             </div>
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Address
               </label>
               <input
@@ -380,7 +380,7 @@ const OrganizerDashboardPage = () => {
           <button
             type="submit"
             disabled={addTheaterMutation.isPending}
-            className="w-full btn-primary py-3 text-xs tracking-widest uppercase"
+            className="w-full glass-button-primary py-3 text-xs tracking-widest uppercase"
           >
             {addTheaterMutation.isPending ? "Adding..." : "Add Theater"}
           </button>
@@ -406,7 +406,7 @@ const OrganizerDashboardPage = () => {
           className="space-y-6"
         >
           <div>
-            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
               Screen Name
             </label>
             <input
@@ -422,7 +422,7 @@ const OrganizerDashboardPage = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Rows
               </label>
               <input
@@ -438,7 +438,7 @@ const OrganizerDashboardPage = () => {
               />
             </div>
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Seats Per Row
               </label>
               <input
@@ -461,7 +461,7 @@ const OrganizerDashboardPage = () => {
             disabled={
               addScreenMutation.isPending || updateScreenMutation.isPending
             }
-            className="w-full btn-primary py-3 text-xs tracking-widest uppercase"
+            className="w-full glass-button-primary py-3 text-xs tracking-widest uppercase"
           >
             {selectedScreen ? "Update Layout" : "Add Screen"}
           </button>
@@ -476,7 +476,7 @@ const OrganizerDashboardPage = () => {
       >
         <form onSubmit={handleAddShowtime} className="space-y-6">
           <div>
-            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+            <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
               Select Movie
             </label>
             <select
@@ -497,7 +497,7 @@ const OrganizerDashboardPage = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Date & Time
               </label>
               <input
@@ -511,7 +511,7 @@ const OrganizerDashboardPage = () => {
               />
             </div>
             <div>
-              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-cinema-muted mb-2 block">
+              <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Base Price (₹)
               </label>
               <input
@@ -532,7 +532,7 @@ const OrganizerDashboardPage = () => {
           <button
             type="submit"
             disabled={addShowtimeMutation.isPending}
-            className="w-full btn-primary py-3 text-xs tracking-widest uppercase"
+            className="w-full glass-button-primary py-3 text-xs tracking-widest uppercase"
           >
             {addShowtimeMutation.isPending ? "Adding..." : "Add Showtime"}
           </button>

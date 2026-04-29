@@ -6,7 +6,7 @@ const BookingCard = ({ booking, onCancel }) => {
     new Date(booking.showtime.startsAt) > new Date();
 
   return (
-    <div className="glass-card overflow-hidden flex flex-col md:flex-row mb-6 border-l-4 border-cinema-gold">
+    <div className="glass-card overflow-hidden flex flex-col md:flex-row mb-6 border-l-4 border-brand-primary">
       {/* Poster Section */}
       <div className="w-full md:w-48 bg-cinema-black h-48 md:h-auto">
         <img
@@ -27,7 +27,7 @@ const BookingCard = ({ booking, onCancel }) => {
               className={`text-[10px] uppercase font-bold px-3 py-1 rounded-full ${
                 booking.status === "confirmed"
                   ? "bg-green-500 text-black"
-                  : "bg-cinema-red text-white"
+                  : "bg-white/20 text-white"
               }`}
             >
               {booking.status}
@@ -62,7 +62,7 @@ const BookingCard = ({ booking, onCancel }) => {
             </div>
             <div>
               <p className="text-white mb-1">Booking ID</p>
-              <p className="text-cinema-gold">{booking.bookingId}</p>
+              <p className="text-brand-primary">{booking.bookingId}</p>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ const BookingCard = ({ booking, onCancel }) => {
           <div className="mt-6 flex justify-end">
             <button
               onClick={() => onCancel(booking._id)}
-              className="text-cinema-red hover:text-white transition-colors text-[10px] uppercase font-bold tracking-widest"
+              className="text-white/20 hover:text-white transition-colors text-[10px] uppercase font-bold tracking-widest"
             >
               Cancel Booking
             </button>
@@ -80,8 +80,8 @@ const BookingCard = ({ booking, onCancel }) => {
       </div>
 
       {/* QR Code Section */}
-      <div className="w-full md:w-48 p-6 flex flex-col items-center justify-center bg-white bg-opacity-5 border-t md:border-t-0 md:border-l border-white border-opacity-5">
-        <div className="w-32 h-32 border-2 border-dashed border-cinema-gold p-1 mb-2 bg-white flex items-center justify-center">
+      <div className="w-full md:w-48 p-6 flex flex-col items-center justify-center bg-white/5 border-t md:border-t-0 md:border-l border-white border-opacity-5">
+        <div className="w-32 h-32 border-2 border-dashed border-brand-primary p-1 mb-2 bg-white flex items-center justify-center">
           {booking.qrCode ? (
             <img
               src={booking.qrCode}

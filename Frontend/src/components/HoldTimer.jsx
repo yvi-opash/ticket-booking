@@ -34,18 +34,18 @@ const HoldTimer = ({ startTime, onExpire }) => {
   const isWarning = timeLeft < 2 * 60 * 1000;
 
   return (
-    <div
-      className={`flex flex-col items-center p-4 glass-card border-t-2 ${isWarning ? "border-cinema-red" : "border-cinema-gold"}`}
-    >
-      <span className="text-[10px] uppercase tracking-widest text-cinema-muted mb-1">
-        Seats reserved for:
-      </span>
-      <span
-        className={`text-3xl font-display ${isWarning ? "text-cinema-red animate-pulse" : "text-cinema-gold"}`}
-      >
-        {minutes.toString().padStart(2, "0")}:
-        {seconds.toString().padStart(2, "0")}
-      </span>
+    <div className="flex flex-col items-center justify-center py-4 px-6 text-center">
+      <p className="text-[10px] uppercase font-black tracking-[0.3em] text-white/40 mb-3">
+        Session <span className="text-brand-primary">Security</span>
+      </p>
+      <div className="flex items-center gap-4">
+        <div className={`text-4xl font-black tabular-nums transition-colors duration-500 ${isWarning ? "text-brand-primary animate-pulse" : "text-white"}`}>
+          {minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}
+        </div>
+      </div>
+      <p className="text-[9px] uppercase font-bold tracking-widest text-white/20 mt-3">
+        Remaining time to complete
+      </p>
     </div>
   );
 };

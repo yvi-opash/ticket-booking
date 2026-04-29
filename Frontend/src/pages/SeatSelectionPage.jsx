@@ -110,7 +110,7 @@ const SeatSelectionPage = () => {
   if (isShowtimeLoading || isSeatsLoading) {
     return (
       <div className="min-h-screen bg-cinema-black flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-cinema-gold"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-brand-primary"></div>
       </div>
     );
   }
@@ -119,99 +119,90 @@ const SeatSelectionPage = () => {
   const totalPrice = selectedSeats.reduce((sum, s) => sum + s.price, 0);
 
   return (
-    <div className="min-h-screen bg-cinema-black flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-brand-dark flex flex-col lg:flex-row">
       {/* Main Selection Area */}
       <div className="flex-1 overflow-y-auto pb-32">
-        <div className="p-6 md:p-10">
-          <div className="flex items-center justify-between mb-8">
+        <div className="p-8 md:p-12">
+          <div className="flex items-center justify-between mb-12">
             <div>
-              <h1 className="text-3xl font-display text-white mb-1 uppercase tracking-wider">
+              <h1 className="text-4xl font-black text-white mb-2 uppercase tracking-tighter">
                 {showtime?.movie.title}
               </h1>
-              <p className="text-xs text-cinema-muted uppercase tracking-[0.2em]">
-                {new Date(showtime?.startsAt || "").toLocaleString([], {
-                  weekday: "long",
-                  month: "long",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-                <span className="mx-2 opacity-20">|</span>
-                {(showtime?.screen.theater).name} • {showtime?.screen.name}
-              </p>
+              <div className="flex items-center gap-4 text-[10px] text-white/40 uppercase font-black tracking-widest">
+                <span>{new Date(showtime?.startsAt || "").toLocaleDateString()}</span>
+                <div className="w-1 h-1 rounded-full bg-brand-primary" />
+                <span className="text-brand-primary">{(showtime?.screen.theater).name}</span>
+                <div className="w-1 h-1 rounded-full bg-white/10" />
+                <span>{showtime?.screen.name}</span>
+              </div>
             </div>
             <button
               onClick={() => navigate(-1)}
-              className="text-cinema-gold hover:text-white transition-colors uppercase font-bold text-[10px] tracking-widest"
+              className="glass-button text-[10px] px-6"
             >
               ← Go Back
             </button>
           </div>
 
-          <SeatMap
-            seats={seatsData?.data || []}
-            selectedSeatIds={selectedSeats.map((s) => s._id)}
-            onSeatClick={handleSeatClick}
-            showtimeId={id || ""}
-          />
+          <div className="glass-card p-12 bg-white/[0.02]">
+             <SeatMap
+                seats={seatsData?.data || []}
+                selectedSeatIds={selectedSeats.map((s) => s._id)}
+                onSeatClick={handleSeatClick}
+                showtimeId={id || ""}
+             />
+          </div>
         </div>
       </div>
 
       {/* Summary Sidebar */}
-      <div className="w-full lg:w-96 bg-cinema-dark border-l border-white border-opacity-5 p-8 flex flex-col justify-between">
+      <div className="w-full lg:w-[450px] bg-white/[0.02] backdrop-blur-3xl border-l border-white/5 p-10 flex flex-col justify-between">
         <div>
-          <h2 className="text-2xl font-display text-cinema-gold mb-8 uppercase tracking-widest">
-            Order Summary
+          <h2 className="text-3xl font-black text-white mb-12 uppercase tracking-tighter">
+            Ticket <span className="text-brand-primary">Summary</span>
           </h2>
 
           {selectedSeats.length === 0 ? (
-            <div className="text-center py-20 opacity-20">
-              <p className="text-xs uppercase tracking-widest font-bold">
-                Select seats to proceed
+            <div className="text-center py-24 glass-card border-dashed">
+              <p className="text-[10px] uppercase tracking-[0.3em] font-black text-white/20">
+                Select seats to continue
               </p>
             </div>
           ) : (
-            <div className="space-y-6">
-              <div className="max-h-[40vh] overflow-y-auto pr-2 space-y-4">
+            <div className="space-y-8">
+              <div className="max-h-[40vh] overflow-y-auto pr-4 space-y-4">
                 {selectedSeats.map((seat) => (
                   <div
                     key={seat._id}
-                    className="flex justify-between items-center bg-white bg-opacity-5 p-4 rounded border-l-2 border-cinema-gold animate-in slide-in-from-right-4"
+                    className="flex justify-between items-center glass-card p-5 animate-in slide-in-from-right-8"
                   >
                     <div>
-                      <p className="text-sm font-bold text-white uppercase tracking-wider">
-                        Row {String.fromCharCode(64 + seat.row)} - Seat{" "}
-                        {seat.number}
+                      <p className="text-xs font-black text-white uppercase tracking-widest">
+                         {String.fromCharCode(64 + seat.row)}{seat.number}
                       </p>
-                      <p className="text-[10px] text-cinema-muted uppercase tracking-widest">
-                        {seat.tier}
+                      <p className="text-[10px] text-brand-primary uppercase font-black tracking-tighter">
+                        {seat.tier} • SEC A
                       </p>
                     </div>
-                    <span className="text-cinema-gold font-display text-xl">
+                    <span className="text-2xl font-black text-white">
                       ₹{seat.price}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-6 border-t border-white border-opacity-10">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-cinema-muted uppercase tracking-widest">
-                    Subtotal
+              <div className="pt-8 border-t border-white/5 space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-[10px] text-white/30 uppercase font-black tracking-widest">
+                    Service Fee
                   </span>
-                  <span className="text-white font-bold">₹{totalPrice}</span>
-                </div>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-xs text-cinema-muted uppercase tracking-widest">
-                    Convenience Fee
-                  </span>
-                  <span className="text-white font-bold">₹1.50</span>
+                  <span className="text-white font-black text-sm">₹1.50</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-display text-cinema-gold uppercase tracking-widest">
-                    Total Price
+                  <span className="text-xl font-black text-brand-primary uppercase tracking-tighter">
+                    Total
                   </span>
-                  <span className="text-3xl font-display text-white">
+                  <span className="text-4xl font-black text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                     ₹{totalPrice + 1.5}
                   </span>
                 </div>
@@ -220,23 +211,25 @@ const SeatSelectionPage = () => {
           )}
         </div>
 
-        <div className="mt-12 space-y-4">
-          <HoldTimer startTime={holdStartTime} onExpire={handleExpire} />
+        <div className="mt-16 space-y-6">
+          <div className="glass-card p-4 bg-brand-primary/5 border-brand-primary/10">
+             <HoldTimer startTime={holdStartTime} onExpire={handleExpire} />
+          </div>
 
           <button
             disabled={selectedSeats.length === 0}
             onClick={handleProceed}
-            className="w-full btn-primary py-4 text-sm tracking-widest uppercase font-bold disabled:opacity-30 disabled:cursor-not-allowed shadow-[0_10px_20px_rgba(245,197,24,0.15)]"
+            className="glass-button-primary w-full py-5 text-sm"
           >
-            Confirm & Checkout
+            Confirm & Pay
           </button>
 
           {selectedSeats.length > 0 && (
             <button
               onClick={handleReleaseAll}
-              className="w-full text-[10px] text-cinema-red hover:text-white uppercase font-bold tracking-widest transition-colors"
+              className="w-full text-[10px] text-white/20 hover:text-white uppercase font-black tracking-widest transition-colors"
             >
-              Cancel Selection
+              Clear Selection
             </button>
           )}
         </div>

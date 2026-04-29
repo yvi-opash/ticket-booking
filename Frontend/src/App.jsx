@@ -52,8 +52,8 @@ const App = () => {
 
   if (loading) {
     return (
-      <div className="h-screen w-full flex items-center justify-center bg-cinema-black">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-cinema-gold"></div>
+      <div className="h-screen w-full flex items-center justify-center bg-brand-dark">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-brand-primary"></div>
       </div>
     );
   }
@@ -112,20 +112,20 @@ const App = () => {
               <Route
                 path="*"
                 element={
-                  <div className="h-screen flex flex-col items-center justify-center text-center px-4">
-                    <h1 className="text-9xl font-display text-cinema-gold opacity-10 absolute z-0 select-none">
+                  <div className="h-screen flex flex-col items-center justify-center text-center px-4 bg-brand-dark">
+                    <h1 className="text-9xl font-display text-brand-primary opacity-10 absolute z-0 select-none">
                       404
                     </h1>
                     <div className="relative z-10">
                       <h2 className="text-4xl font-display text-white mb-4 uppercase tracking-widest">
                         Page Not Found
                       </h2>
-                      <p className="text-cinema-muted uppercase tracking-[0.2em] text-xs mb-8">
+                      <p className="text-white/30 uppercase tracking-[0.2em] text-xs mb-8">
                         The film you are looking for has been discontinued.
                       </p>
                       <button
                         onClick={() => (window.location.href = "/")}
-                        className="btn-primary py-3 px-10 text-xs tracking-widest"
+                        className="glass-button-primary py-3 px-10"
                       >
                         Back to Reality
                       </button>
@@ -136,8 +136,8 @@ const App = () => {
             </Routes>
           </main>
 
-          <footer className="bg-cinema-black border-t border-white border-opacity-5 py-10 text-center">
-            <p className="text-[10px] text-cinema-muted uppercase font-bold tracking-[0.5em]">
+          <footer className="bg-brand-dark border-t border-white border-opacity-5 py-10 text-center">
+            <p className="text-[10px] text-white/20 uppercase font-bold tracking-[0.5em]">
               © 2026 CINEPLEX PLATINUM • DEVELOPED FOR EXCELLENCE
             </p>
           </footer>

@@ -14,7 +14,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       {/* Modal Content */}
       <div className="relative w-full max-w-lg glass-card p-6 sm:p-8 animate-in zoom-in-95 duration-300">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-display text-cinema-gold tracking-wide">
+          <h2 className="text-2xl font-display text-brand-primary tracking-wide">
             {title}
           </h2>
           <button
