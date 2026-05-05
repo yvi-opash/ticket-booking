@@ -80,19 +80,32 @@
 
 /* Red Theatre Seat Styles */
 .seat-base {
-  @apply w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-black transition-all duration-500 cursor-pointer border border-white/10;
+  @apply w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-black transition-all duration-500 cursor-pointer border;
 }
 
 .seat-available {
-  @apply bg-white/5 text-white/10 hover:bg-white/10 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-[0_0_15px_rgba(229,9,20,0.3)];
+  @apply bg-white/5 border-white/10 text-white/10 hover:bg-white/10 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-[0_0_15px_rgba(229,9,20,0.3)];
+}
+
+/* Tier Specific Styles */
+.seat-vip {
+  @apply border-yellow-500 text-yellow-500/80 bg-yellow-500/5 hover:bg-yellow-500/20 hover:text-yellow-500 hover:shadow-[0_0_20px_rgba(234,179,8,0.4)] border-2;
+}
+
+.seat-premium {
+  @apply border-blue-400 text-blue-400/80 bg-blue-400/5 hover:bg-blue-400/20 hover:text-blue-400 hover:shadow-[0_0_20px_rgba(96,165,250,0.4)] border-2;
+}
+
+.seat-standard {
+  @apply border-white/20 text-white/40 bg-white/5 hover:bg-white/10 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-[0_0_15px_rgba(229,9,20,0.3)];
 }
 
 .seat-selected {
-  @apply bg-brand-primary text-white border-brand-primary shadow-[0_0_25px_rgba(229,9,20,0.5)] scale-110;
+  @apply bg-brand-primary text-white border-brand-primary shadow-[0_0_25px_rgba(229,9,20,0.5)] scale-110 z-10;
 }
 
 .seat-held {
-  @apply bg-white/20 text-white/40 border-white/20 cursor-not-allowed opacity-50;
+  @apply bg-orange-500/20 text-orange-500 border-orange-500/40 cursor-not-allowed opacity-80;
 }
 
 .seat-sold {

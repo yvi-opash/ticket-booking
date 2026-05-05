@@ -4,9 +4,8 @@ import Booking from "../models/booking.model.js";
 import Seat from "../models/seats.model.js";
 import Hold from "../models/holds.model.js";
 import { emitSeatUpdate } from "../config/socket.js";
-/**
- * Completes checkout and creates a booking.
- */
+
+
 export const createBooking = async (userId, showtimeId, seatIds) => {
     try {
         let totalAmount = 0;
@@ -73,9 +72,7 @@ export const createBooking = async (userId, showtimeId, seatIds) => {
     }
 };
 
-/**
- * Cancels a booking before the showtime starts.
- */
+
 export const cancelBooking = async (bookingId, userId) => {
     try {
         const booking = await Booking.findOne({ _id: bookingId, user: userId, status: "confirmed" })

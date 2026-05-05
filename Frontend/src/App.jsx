@@ -138,7 +138,7 @@ const App = () => {
 
           <footer className="bg-brand-dark border-t border-white border-opacity-5 py-10 text-center">
             <p className="text-[10px] text-white/20 uppercase font-bold tracking-[0.5em]">
-              © 2026 CINEPLEX PLATINUM • DEVELOPED FOR EXCELLENCE
+              © 2026 CINEPLEX PLATINUM • 
             </p>
           </footer>
         </div>

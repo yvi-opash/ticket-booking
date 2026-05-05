@@ -51,10 +51,10 @@ const Navbar = () => {
               <div className="relative group">
                 <button className="flex items-center gap-3 p-2 rounded-2xl hover:bg-white/5 transition-all">
                   <div className="text-right">
-                    <p className="text-xs font-black uppercase text-brand-primary tracking-widest leading-none">
+                    <p className="text-s font-black uppercase text-brand-primary tracking-widest leading-none">
                       {user?.name}
                     </p>
-                    <p className="text-[10px] text-white/40 uppercase font-bold tracking-tighter">
+                    <p className="text-[13px] text-white/90 uppercase font-bold tracking-tighter">
                       {user?.role}
                     </p>
                   </div>

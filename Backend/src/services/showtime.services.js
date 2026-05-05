@@ -47,17 +47,21 @@ export const createShowtime = async (showtimedata) => {
 
         const seatsToInsert = [];
         for(let row = 1; row <= screen.rows; row++){
-            let assignedTier = "Standard"
-            
+            let assignedTier = "Standard";
             let assignedPrice = showtimedata.price || 150;
 
-            if(screen.tiers && screen.tiers.length > 0) {
-                const matchedTier = screen.tiers.find(t => row >= t.rowStart && row <= t.rowEnd);
-                if(matchedTier) {
-                    assignedTier = matchedTier.tier;
+            const matchedTier = screen.tiers && screen.tiers.length > 0 
+                ? screen.tiers.find(t => row >= t.rowStart && row <= t.rowEnd)
+                : null;
 
-                    assignedPrice = showtimedata.price || matchedTier.price || assignedPrice;
-                }
+            if(matchedTier) {
+                assignedTier = matchedTier.tier;
+                // Look for the price of this tier in showtimedata.tierPrices
+                const tierPriceObj = showtimedata.tierPrices?.find(tp => tp.tier === assignedTier);
+                assignedPrice = tierPriceObj?.price || showtimedata.price || 150;
+            } else {
+                assignedTier = "Standard"; 
+                assignedPrice = showtimedata.price || 150;
             }
 
             for(let num = 1; num <= screen.seatsPerRow; num++){

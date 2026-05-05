@@ -121,11 +121,10 @@ const AdminDashboardPage = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-4 text-xs font-bold uppercase tracking-widest transition-all ${
-                activeTab === tab
+              className={`pb-4 text-xs font-bold uppercase tracking-widest transition-all ${activeTab === tab
                   ? "text-brand-primary border-b-2 border-brand-primary"
                   : "text-white/40 hover:text-white"
-              }`}
+                }`}
             >
               {tab}
             </button>
@@ -365,11 +364,10 @@ const AdminDashboardPage = () => {
                         </td>
                         <td className="px-6 py-4">
                           <span
-                            className={`px-2 py-1 rounded-full text-[8px] uppercase font-bold ${
-                              booking.status === "confirmed"
+                            className={`px-2 py-1 rounded-full text-[8px] uppercase font-bold ${booking.status === "confirmed"
                                 ? "bg-green-500/20 text-green-500"
                                 : "bg-white/20/20 text-white/20"
-                            }`}
+                              }`}
                           >
                             {booking.status}
                           </span>
@@ -411,31 +409,44 @@ const AdminDashboardPage = () => {
               <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Genre
               </label>
-              <input
-                type="text"
+              <select
                 required
                 value={newMovie.genre}
                 onChange={(e) =>
                   setNewMovie({ ...newMovie, genre: e.target.value })
                 }
-                className="input-field"
-                placeholder="Action, Sci-Fi"
-              />
+                className="input-field py-2 text-xs"
+              >
+                <option value="">Select Genre</option>
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Drama">Drama</option>
+                <option value="Horror">Horror</option>
+                <option value="Sci-Fi">Sci-Fi</option>
+                <option value="Romance">Romance</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Animation">Animation</option>
+              </select>
             </div>
             <div>
               <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 mb-2 block">
                 Language
               </label>
-              <input
-                type="text"
+              <select
                 required
                 value={newMovie.language}
                 onChange={(e) =>
                   setNewMovie({ ...newMovie, language: e.target.value })
                 }
-                className="input-field"
-                placeholder="English"
-              />
+                className="input-field py-2 text-xs"
+              >
+                <option value="English">English</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Gujarati">Gujarati</option>
+                <option value="Marathi">Marathi</option>
+                <option value="Tamil">Tamil</option>
+                <option value="Telugu">Telugu</option>
+              </select>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">

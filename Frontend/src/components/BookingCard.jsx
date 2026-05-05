@@ -3,6 +3,7 @@ import React from "react";
 const BookingCard = ({ booking, onCancel }) => {
   const isCancellable =
     booking.status === "confirmed" &&
+    booking.showtime &&
     new Date(booking.showtime.startsAt) > new Date();
 
   return (
@@ -21,7 +22,7 @@ const BookingCard = ({ booking, onCancel }) => {
         <div>
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-2xl font-display text-white tracking-wide">
-              {booking.showtime.movie.title}
+              {booking.showtime?.movie?.title || "Movie Unavailable"}
             </h3>
             <span
               className={`text-[10px] uppercase font-bold px-3 py-1 rounded-full ${
@@ -38,11 +39,15 @@ const BookingCard = ({ booking, onCancel }) => {
             <div>
               <p className="text-white mb-1">Date & Time</p>
               <p>
-                {new Date(booking.showtime.startsAt).toLocaleDateString()} at{" "}
-                {new Date(booking.showtime.startsAt).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                {booking.showtime ? (
+                  <>
+                    {new Date(booking.showtime.startsAt).toLocaleDateString()} at{" "}
+                    {new Date(booking.showtime.startsAt).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </>
+                ) : "N/A"}
               </p>
             </div>
             <div>

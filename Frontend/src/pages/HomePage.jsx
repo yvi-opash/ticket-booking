@@ -57,9 +57,6 @@ const HomePage = () => {
             >
               Start Booking
             </a>
-            <button className="glass-button">
-              Watch Trailer
-            </button>
           </div>
         </div>
 

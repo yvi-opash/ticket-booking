@@ -123,7 +123,7 @@ const SeatSelectionPage = () => {
       {/* Main Selection Area */}
       <div className="flex-1 overflow-y-auto pb-32">
         <div className="p-8 md:p-12">
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center justify-between mb-12 mt-12">
             <div>
               <h1 className="text-4xl font-black text-white mb-2 uppercase tracking-tighter">
                 {showtime?.movie.title}
@@ -192,18 +192,18 @@ const SeatSelectionPage = () => {
               </div>
 
               <div className="pt-8 border-t border-white/5 space-y-4">
-                <div className="flex justify-between items-center">
+                {/* <div className="flex justify-between items-center">
                   <span className="text-[10px] text-white/30 uppercase font-black tracking-widest">
                     Service Fee
                   </span>
                   <span className="text-white font-black text-sm">₹1.50</span>
-                </div>
+                </div> */}
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-black text-brand-primary uppercase tracking-tighter">
                     Total
                   </span>
                   <span className="text-4xl font-black text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                    ₹{totalPrice + 1.5}
+                    ₹{totalPrice}
                   </span>
                 </div>
               </div>

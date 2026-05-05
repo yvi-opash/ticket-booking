@@ -97,13 +97,18 @@ const SeatMap = ({
                   .sort((a, b) => a.number - b.number)
                   .map((seat) => {
                     const isSelected = selectedSeatIds.includes(seat._id);
+                    const tierClass = 
+                      seat.tier === "VIP" ? "seat-vip" : 
+                      seat.tier === "Premium" ? "seat-premium" : 
+                      "seat-standard";
+
                     const statusClass = isSelected 
                       ? "seat-selected" 
                       : seat.status === "sold" 
                         ? "seat-sold" 
                         : seat.status === "held" 
                           ? "seat-held" 
-                          : "seat-available";
+                          : `seat-available ${tierClass}`;
                     
                     return (
                       <button
@@ -127,22 +132,31 @@ const SeatMap = ({
       </div>
 
       {/* Modern Status Legend */}
-      <div className="glass-card px-12 py-8 flex flex-wrap justify-center gap-16 mt-16">
-        <div className="flex items-center gap-4">
-          <div className="w-5 h-5 rounded-lg bg-white/10 border border-white/20" />
-          <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">Available</span>
+      <div className="glass-card px-12 py-8 flex flex-wrap justify-center gap-12 mt-16 max-w-4xl">
+        <div className="flex items-center gap-3">
+          <div className="w-4 h-4 rounded bg-white/5 border border-white/10" />
+          <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">Standard</span>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="w-5 h-5 rounded-lg bg-brand-primary shadow-[0_0_20px_rgba(229,9,20,0.4)]" />
-          <span className="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em]">Selected</span>
+        <div className="flex items-center gap-3">
+          <div className="w-4 h-4 rounded bg-white/5 border border-blue-400" />
+          <span className="text-[9px] font-black text-blue-400 uppercase tracking-widest">Premium</span>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="w-5 h-5 rounded-lg bg-white/30" />
-          <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">Held</span>
+        <div className="flex items-center gap-3">
+          <div className="w-4 h-4 rounded bg-white/5 border border-yellow-500" />
+          <span className="text-[9px] font-black text-yellow-500 uppercase tracking-widest">VIP</span>
         </div>
-        <div className="flex items-center gap-4 opacity-20">
-          <div className="w-5 h-5 rounded-lg bg-white/5" />
-          <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Sold</span>
+        <div className="w-[1px] h-4 bg-white/10 hidden md:block" />
+        <div className="flex items-center gap-3">
+          <div className="w-4 h-4 rounded bg-brand-primary" />
+          <span className="text-[9px] font-black text-brand-primary uppercase tracking-widest">Selected</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="w-4 h-4 rounded bg-orange-500/40 border border-orange-500/40" />
+          <span className="text-[9px] font-black text-orange-500 uppercase tracking-widest">Held</span>
+        </div>
+        <div className="flex items-center gap-3 opacity-20">
+          <div className="w-4 h-4 rounded bg-white/5" />
+          <span className="text-[9px] font-black text-white/20 uppercase tracking-widest">Sold</span>
         </div>
       </div>
     </div>

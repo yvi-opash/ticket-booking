@@ -39,8 +39,14 @@ const showtimesSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        default: 10,
-    }
+        default: 150,
+    },
+    tierPrices: [
+        {
+            tier: { type: String, enum: ["VIP", "Premium", "Standard"] },
+            price: Number
+        }
+    ]
 
 
 }, {timestamps: true}
